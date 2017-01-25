@@ -13,11 +13,19 @@ public class Employee {
     public Long id;
 
     public String name;
+    public String surname;
+    public String title;
+    public String email;
+    public String salary;
 
     public Employee() {}
 
-    public Employee(String name) {
+    public Employee(String name, String surname, String title, String email, String salary) {
         this.name = name;
+        this.surname = surname;
+        this.title = title;
+        this.email = email;
+        this.salary = salary;
     }
 
 }

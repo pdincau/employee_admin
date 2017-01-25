@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @RequestMapping(method= RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody Employee input) {
-        Employee result = repository.save(new Employee(input.name));
+        Employee result = repository.save(new Employee(input.name, input.surname, input.title, input.email, input.salary));
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(locationFor(result));
 
