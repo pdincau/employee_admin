@@ -20,12 +20,4 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(String name, String surname, String title, String email, String salary) {
-        this.name = name;
-        this.surname = surname;
-        this.title = title;
-        this.email = email;
-        this.salary = salary;
-    }
-
 }
