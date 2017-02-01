@@ -15,10 +15,12 @@ import java.util.Collection;
 public class EmployeeController {
 
     private final EmployeeRepository repository;
+    private GoogleHttpClient client;
 
     @Autowired
     public EmployeeController(EmployeeRepository repository) {
         this.repository = repository;
+        this.client = new GoogleHttpClient();
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -28,12 +30,18 @@ public class EmployeeController {
 
     @RequestMapping(method= RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody Employee input) {
-        Employee result = repository.save(input);
+        Employee employee = repository.save(input);
+        notifyCreationOf(employee);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(locationFor(result));
+        httpHeaders.setLocation(locationFor(employee));
 
         return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
 
+    }
+
+    private void notifyCreationOf(Employee employee) {
+        String json = "{\"name\": \"" + employee.name + "\", \"email\": \"" + employee.email+ "\"}";
+        client.post(System.getenv("URL"), json);
     }
 
     private URI locationFor(Employee employee) {
